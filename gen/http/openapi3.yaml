@@ -1,0 +1,115 @@
+openapi: 3.0.3
+info:
+  title: tikasan/goa-simple-sample
+  description: goaのサンプルです
+  contact:
+    name: pei
+    url: ./issues
+    email: satak47cpc@gmail.com
+  license:
+    name: MIT
+    url: ./LICENSE
+  version: "1.0"
+servers:
+- url: http://localhost:8080/api/v3
+paths:
+  /{id}:
+    get:
+      tags:
+      - actions
+      summary: ID actions
+      description: 複数アクション（:id）
+      operationId: actions#ID
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: integer
+          description: id
+          example: 8250642696325497812
+          format: int64
+        example: 2899886551529128159
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 4353024790654300723
+                format: int64
+              example: 7567634255553446604
+  /hello:
+    get:
+      tags:
+      - actions
+      summary: hello actions
+      description: 挨拶する
+      operationId: actions#hello
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HelloRequestBody'
+            example:
+              name: Illum debitis reiciendis quam dolorem.
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Eos facere repellat laudantium.
+              example: Ducimus consequuntur neque maxime.
+  /ping:
+    put:
+      tags:
+      - actions
+      summary: ping actions
+      description: サーバーとの導通確認
+      operationId: actions#ping
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Ducimus earum aliquam voluptatem et.
+              example: Sit aut.
+  /swagger.json:
+    get:
+      tags:
+      - swagger
+      summary: Download swagger/swagger.json
+      operationId: swagger#/swagger.json
+      responses:
+        "200":
+          description: File downloaded
+  /swagger/*filepath:
+    get:
+      tags:
+      - swagger
+      summary: Download public/swagger/
+      operationId: swagger#/swagger/*filepath
+      responses:
+        "200":
+          description: File downloaded
+components:
+  schemas:
+    HelloRequestBody:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name
+          default: ""
+          example: Voluptas et sit distinctio dicta veritatis.
+      example:
+        name: Eum illum nemo.
+      required:
+      - name

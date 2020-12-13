@@ -1,0 +1,122 @@
+swagger: "2.0"
+info:
+  title: tikasan/goa-simple-sample
+  description: goaのサンプルです
+  contact:
+    name: pei
+    email: satak47cpc@gmail.com
+    url: ./issues
+  license:
+    name: MIT
+    url: ./LICENSE
+  version: ""
+host: localhost:8080
+consumes:
+- application/json
+- application/xml
+- application/gob
+produces:
+- application/json
+- application/xml
+- application/gob
+paths:
+  /{id}:
+    get:
+      tags:
+      - actions
+      summary: ID actions
+      description: 複数アクション（:id）
+      operationId: actions#ID
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            type: integer
+            format: int64
+      schemes:
+      - http
+  /hello:
+    get:
+      tags:
+      - actions
+      summary: hello actions
+      description: 挨拶する
+      operationId: actions#hello
+      parameters:
+      - name: HelloRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ActionsHelloRequestBody'
+          required:
+          - name
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            type: string
+      schemes:
+      - http
+  /ping:
+    put:
+      tags:
+      - actions
+      summary: ping actions
+      description: サーバーとの導通確認
+      operationId: actions#ping
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            type: string
+      schemes:
+      - http
+  /swagger.json:
+    get:
+      tags:
+      - swagger
+      summary: Download swagger/swagger.json
+      operationId: swagger#/swagger.json
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+      schemes:
+      - http
+  /swagger/*filepath:
+    get:
+      tags:
+      - swagger
+      summary: Download public/swagger/
+      operationId: swagger#/swagger/*filepath
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+      schemes:
+      - http
+definitions:
+  ActionsHelloRequestBody:
+    title: ActionsHelloRequestBody
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name
+        default: ""
+        example: Quis velit porro.
+    example:
+      name: Non molestiae debitis.
+    required:
+    - name
+externalDocs:
+  description: wiki
+  url: ./wiki
